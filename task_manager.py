@@ -38,12 +38,12 @@ class TaskApp:
 
         if username and password:
             if username in self.users:
-                messagebox.showerror("Registration Failed", "Username already exists!")
+                messagebox.showerror("Regisztráció sikertelen volt.", "Felhasználónév már foglalt!")
             else:
                 self.users[username] = {"password": password, "tasks": []}
-                messagebox.showinfo("Registration Successful", "Registration successful! You can now log in.")
+                messagebox.showinfo("Regisztráció sikeres volt.", "Regisztráció sikeres, mostmár beléphetsz.")
         else:
-            messagebox.showerror("Registration Failed", "Please enter a username and password!")
+            messagebox.showerror("Regisztráció sikertelen! Adj meg egy felhasználónevet és egy jelszót!")
 
     def login(self):
         username = self.username_entry.get()
@@ -52,12 +52,12 @@ class TaskApp:
         if username in self.users:
             if self.users[username]["password"] == password:
                 self.logged_in_user = username
-                self.login_frame.destroy()  # Close the login window
+                self.login_frame.destroy()  
                 self.create_task_manager()
             else:
-                messagebox.showerror("Login Failed", "Invalid password!")
+                messagebox.showerror("Belépés sikertelen", "Helytelen jelszó!")
         else:
-            messagebox.showerror("Login Failed", "User does not exist!")
+            messagebox.showerror("Belépés sikertelen", "Felhasználó nem létezik!")
 
     def create_task_manager(self):
         self.task_frame = tk.Frame(self.root)
@@ -101,7 +101,7 @@ class TaskApp:
             self.display_tasks()
             self.task_entry.delete(0, tk.END)
         else:
-            messagebox.showerror("Add Task Failed", "Please enter a task!")
+            messagebox.showerror("Feladat hozzáadása sikertelen volt", "Adj meg egy Task-ot!")
 
     def modify_task(self):
         selected_task_index = self.task_listbox.curselection()
@@ -115,9 +115,9 @@ class TaskApp:
                 self.display_tasks()
                 self.task_entry.delete(0, tk.END)
             else:
-                messagebox.showerror("Modify Task Failed", "Please enter a task!")
+                messagebox.showerror("Módosítás sikertlen volt", "Adj meg egy Task-ot!")
         else:
-            messagebox.showerror("Modify Task Failed", "Select a task to modify!")
+            messagebox.showerror("Módosítás sikertlen volt", "Jelölj ki egy Task-ot!")
 
     def delete_task(self):
         selected_task_index = self.task_listbox.curselection()
@@ -125,7 +125,7 @@ class TaskApp:
             self.users[self.logged_in_user]["tasks"].pop(selected_task_index[0])
             self.display_tasks()
         else:
-            messagebox.showerror("Delete Task Failed", "Select a task to delete!")
+            messagebox.showerror("Task törlése sikertelen volt", "Jelölj ki Task-ot a törléshez!")
 
     def display_tasks(self):
         self.task_listbox.delete(0, tk.END)
